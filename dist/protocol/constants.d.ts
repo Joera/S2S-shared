@@ -1,2 +1,0 @@
-export declare const ENS_NAMEWRAPPER = "0xd4416b13d2b3a9abae7acd5d6c2bbdbe25686401";
-//# sourceMappingURL=constants.d.ts.map
