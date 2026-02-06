@@ -1,4 +1,5 @@
 export * from './protocol';
+export * from './contracts'
 export * from './publication';
 export * from './rendering';
 export * from './metadata';
@@ -6,5 +7,4 @@ export * from './lit';
 export * from './pin';
 export * from './eth-rpc';
 export * from './content';
-export * from './encryption';
 export * from './lens';

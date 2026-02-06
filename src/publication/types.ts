@@ -45,3 +45,14 @@ export type S2SAsset = {
     cid: string
 }
 
+
+export type S2SPublication = {
+    name: string,
+    owners: string[],
+    authors: string[],
+    contract?: string,
+    configCid?: string, // ipfs hash for S2SPublicationConfig
+    feed?: string,
+    devRepository: string
+    branch: string
+};

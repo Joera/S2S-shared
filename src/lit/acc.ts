@@ -1,36 +1,11 @@
-import * as ethers from 'ethers'
-
-export const encryptContent = async (
-	oxoCtrlr: any,
-	streamId: string,
-	dealsModule: string,
-	toEncrypt: any,
-): Promise<string> => {
-
-	const unifiedControlConditions = canRead(
-		streamId,
-		ethers.getAddress(oxoCtrlr.user.safe),
-		ethers.getAddress(dealsModule),
-	);
-
-	// console.log(JSON.stringify(unifiedControlConditions));
-
-	return JSON.stringify(
-		await oxoCtrlr.lit.encryptWithUcc(
-			JSON.stringify(toEncrypt),
-			unifiedControlConditions,
-		),
-	);
-};
-
 export const canRead = (
 	stream_id: string,
 	safeAddress: string,
-	dealsModule: string,
+	publicationModule: string,
 ) => [
 	{
         conditionType: "evmContract" as const,
-        contractAddress: dealsModule, // publicationModule
+        contractAddress: publicationModule, 
         functionName: "canPublish",
         functionParams: [safeAddress],
         functionAbi: {
@@ -70,12 +45,12 @@ export const canRead = (
 	{ operator: "and" },
 	{
 		conditionType: "evmContract" as const,
-		contractAddress: dealsModule, // publicationModule
-		functionName: "hasDeal",
+		contractAddress: publicationModule, 
+		functionName: "isLicensed",
 		functionParams: [stream_id],
 		functionAbi: {
-			name: "hasDeal",
-			inputs: [{ name: "stream_id", type: "string" }],
+			name: "isLicensed",
+			inputs: [{ name: "content_id", type: "string" }],
 			outputs: [{ name: "", type: "bool" }],
 			stateMutability: "view",
 			type: "function",
@@ -87,4 +62,46 @@ export const canRead = (
 			value: "true",
 		},
 	},
+];
+
+export const canPublish = (authorSafeAddress: string, publicationModule: string) => [
+    {
+        conditionType: "evmContract",
+        contractAddress: publicationModule,
+        functionName: "canPublish",
+        functionParams: [authorSafeAddress],
+        functionAbi: {
+            name: "canPublish",
+            inputs: [{ name: "_author", type: "address" }],
+            outputs: [{ name: "", type: "bool" }],
+            stateMutability: "view",
+            type: "function",
+        },
+        chain: "base",
+        returnValueTest: {
+          key: "",
+          comparator: "=",  
+          value: "true",
+        }
+    },
+    {operator: "and"},
+    {
+        conditionType: "evmContract",
+        contractAddress: authorSafeAddress, 
+        functionName: "isOwner",
+        functionParams: [":userAddress"],
+        functionAbi: {
+			name: "isOwner",
+			inputs: [{ name: "owner", type: "address" }],
+			outputs: [{ name: "", type: "bool" }],
+			stateMutability: "view",
+			type: "function",
+		},
+        chain: "base",
+        returnValueTest: {
+            key: "",
+            comparator: "=",
+            value: "true",
+        }
+    }
 ];

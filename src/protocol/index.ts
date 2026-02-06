@@ -1,9 +1,9 @@
 import { namehash } from "ethers";
 import * as ethers from "ethers";
-import { S2SProtocolInfo } from "./types";
+import { S2SProtocolInfo, PKP } from "./types";
 import { ENS_NAMEWRAPPER } from "./constants";
 
-export {S2SProtocolInfo}; 
+export {S2SProtocolInfo, PKP}; 
 
 export const getProtocolInfo = async (dev = false, l1Provider: ethers.Provider, l2Provider: ethers.Provider) : Promise<S2SProtocolInfo> => {
   

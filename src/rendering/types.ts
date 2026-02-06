@@ -39,7 +39,7 @@ export interface S2STemplateData {
 export interface S2SCollection {
   source: string;
   query: any;
-  filters: any[];
+  filters?: any[];
   key: string;
   value: string;
   slug: string;
