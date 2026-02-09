@@ -1,9 +1,5 @@
-
-
 import { S2SProtocolInfo } from '../protocol';
-
 export * from './types';
-
 
 export const renderwithLitActions =  async (litNodeClient: any, authContext: any, protocolInfo: S2SProtocolInfo, notice: any, authorSafeAddress: string, publication: string, contentIds: string[], update: boolean, dev: boolean, debug: boolean, configCid?: string | undefined ) : Promise<any> => {
 

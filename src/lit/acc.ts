@@ -1,28 +1,28 @@
 export const canRead = (
-	stream_id: string,
+	content_id: string,
 	safeAddress: string,
 	publicationModule: string,
 ) => [
-	{
-        conditionType: "evmContract" as const,
-        contractAddress: publicationModule, 
-        functionName: "canPublish",
-        functionParams: [safeAddress],
-        functionAbi: {
-            name: "canPublish",
-            inputs: [{ name: "_author", type: "address" }],
-            outputs: [{ name: "", type: "bool" }],
-            stateMutability: "view",
-            type: "function",
-        },
-        chain: "base" as const,
-        returnValueTest: {
-          key: "",
-          comparator: "=" as const,  
-          value: "true",
-        }
-    },
-	{ operator: "and" },
+	// {
+    //     conditionType: "evmContract" as const,
+    //     contractAddress: publicationModule, 
+    //     functionName: "canPublish",
+    //     functionParams: [safeAddress],
+    //     functionAbi: {
+    //         name: "canPublish",
+    //         inputs: [{ name: "_author", type: "address" }],
+    //         outputs: [{ name: "", type: "bool" }],
+    //         stateMutability: "view",
+    //         type: "function",
+    //     },
+    //     chain: "base" as const,
+    //     returnValueTest: {
+    //       key: "",
+    //       comparator: "=" as const,  
+    //       value: "true",
+    //     }
+    // },
+	// { operator: "and" } as const,
 	{
 		conditionType: "evmContract" as const,
 		contractAddress: safeAddress,
@@ -42,31 +42,31 @@ export const canRead = (
 			value: "true",
 		},
 	},
-	{ operator: "and" },
-	{
-		conditionType: "evmContract" as const,
-		contractAddress: publicationModule, 
-		functionName: "isLicensed",
-		functionParams: [stream_id],
-		functionAbi: {
-			name: "isLicensed",
-			inputs: [{ name: "content_id", type: "string" }],
-			outputs: [{ name: "", type: "bool" }],
-			stateMutability: "view",
-			type: "function",
-		},
-		chain: "base" as const,
-		returnValueTest: {
-			key: "",
-			comparator: "=" as const,
-			value: "true",
-		},
-	},
-];
+	// { operator: "and" } as const,
+	// {
+	// 	conditionType: "evmContract" as const,
+	// 	contractAddress: publicationModule, 
+	// 	functionName: "isLicensed",
+	// 	functionParams: [content_id],
+	// 	functionAbi: {
+	// 		name: "isLicensed",
+	// 		inputs: [{ name: "content_id", type: "string" }],
+	// 		outputs: [{ name: "", type: "bool" }],
+	// 		stateMutability: "view",
+	// 		type: "function",
+	// 	},
+	// 	chain: "base" as const,
+	// 	returnValueTest: {
+	// 		key: "",
+	// 		comparator: "=" as const,
+	// 		value: "true",
+	// 	},
+	// },
+];  // No 'as const' here
 
 export const canPublish = (authorSafeAddress: string, publicationModule: string) => [
     {
-        conditionType: "evmContract",
+        conditionType: "evmContract" as const,
         contractAddress: publicationModule,
         functionName: "canPublish",
         functionParams: [authorSafeAddress],
@@ -77,16 +77,16 @@ export const canPublish = (authorSafeAddress: string, publicationModule: string)
             stateMutability: "view",
             type: "function",
         },
-        chain: "base",
+        chain: "base" as const,
         returnValueTest: {
           key: "",
-          comparator: "=",  
+          comparator: "=" as const,  
           value: "true",
         }
     },
-    {operator: "and"},
+    { operator: "and" } as const,
     {
-        conditionType: "evmContract",
+        conditionType: "evmContract" as const,
         contractAddress: authorSafeAddress, 
         functionName: "isOwner",
         functionParams: [":userAddress"],
@@ -97,11 +97,11 @@ export const canPublish = (authorSafeAddress: string, publicationModule: string)
 			stateMutability: "view",
 			type: "function",
 		},
-        chain: "base",
+        chain: "base" as const,
         returnValueTest: {
             key: "",
-            comparator: "=",
+            comparator: "=" as const,
             value: "true",
         }
     }
-];
+];  

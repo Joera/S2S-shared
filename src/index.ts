@@ -1,5 +1,6 @@
 export * from './protocol';
-export * from './contracts'
+export * from './contracts';
+export * from './ipfs';
 export * from './publication';
 export * from './rendering';
 export * from './metadata';
